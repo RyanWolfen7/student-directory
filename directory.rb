@@ -76,7 +76,12 @@ def input_students
 
     # add the student to  Array
     students << {name: name, cohort: cohort, hobby: hobby, meathod_of_murder: mom, favorite_color: fc}
-    puts "Now we have #{students.count} students".center(50)
+    if students.count == 1
+      puts "Now we have #{students.count} student".center(50)
+    else
+      puts "Now we have #{students.count} students".center(50)
+    end
+
     border
     border
     puts
@@ -128,8 +133,8 @@ def print_names(names)
 
   months.each do |month|
     if people_by_cohort.include? month
-      puts "#{month} Cohort".center(50)
-      border
+      puts "#{month} Cohort".center(5)
+      puts "------------".center(5)
       puts people_by_cohort[month]
     end
   end
