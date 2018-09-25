@@ -95,10 +95,43 @@ def print_names(names)
   if !names.empty?
     count = 1
   end
+  # new hash of people by cohort
+  people_by_cohort = {}
 
-  names.each do |name|
-    puts "#{count}: #{name[:name]} (#{name[:cohort]} cohort)"
-    count += 1
+# Old method left for testing
+#  names.each do |name|
+#    puts "#{count}: #{name[:name]} (#{name[:cohort]} cohort)"
+#    count += 1
+#  end
+
+  #sorts through people and assignes them by Cohort to people_by_cohort
+  names.each do |person|
+    cohort = person[:cohort]
+    name = person[:name]
+
+    if people_by_cohort[cohort] == nil
+      people_by_cohort[cohort] = []
+    end
+
+    people_by_cohort[cohort].push(name)
+  end
+
+  # Array of months to sort the list
+  months = [
+    "January", "Feburary", "March", "April", "May",
+    "June", "July", "August", "September", "October",
+    "November", "December"
+  ]
+
+  # For testing purposes
+  # puts people_by_cohort["June"]
+
+  months.each do |month|
+    if people_by_cohort.include? month
+      puts "#{month} Cohort".center(50)
+      border
+      puts people_by_cohort[month]
+    end
   end
 end
 
