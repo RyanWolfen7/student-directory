@@ -1,3 +1,6 @@
+# Number of Students
+student_count = 10
+
 # HEADER
 puts "The students of Villains Academy"
 puts "--------------------------------"
@@ -14,6 +17,4 @@ puts "Joffrey Baratheon"
 puts "Negan"
 
 # Print number of students
-print "Overall, we have "
-print 10
-puts " great students"
+print "Overall, we have #{student_count} great students"
