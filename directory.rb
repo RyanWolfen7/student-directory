@@ -1,16 +1,25 @@
-# Students
-students = [
-  {name: "Darth Vader", cohort: :october},
-  {name: "Elmo", cohort: :october},
-  {name: "The Joker", cohort: :october},
-  {name: "Thanos", cohort: :october},
-  {name: "Lex Luther", cohort: :october},
-  {name: "Magneto", cohort: :october},
-  {name: "Medusa", cohort: :october},
-  {name: "Poison Ivy", cohort: :october},
-  {name: "Joffrey Baratheon", cohort: :october},
-  {name: "Negan", cohort: :october}
-]
+# Students Array
+def input_students
+  puts "--------------------------------------"
+  puts "Please enter the names of the students"
+  puts "To finish, hit return twice"
+  puts "--------------------------------------"
+
+  students = []
+  # gets the first name
+  name = gets.chomp
+  # while name is not empty continue names
+  while !name.empty? do
+    # add the student has to  Array
+    students << {name: name, cohort: :october}
+    puts "Now we have #{students.count} students"
+    # get another name
+    name = gets.chomp
+  end
+  # return the array of students
+  students
+end
+
 # Prints all the Students
 def print_names(names)
   names.each do |name|
@@ -31,6 +40,7 @@ def print_footer(students)
 end
 
 # Run Program
+students = input_students
 print_header
 print_names(students)
 print_footer(students)
