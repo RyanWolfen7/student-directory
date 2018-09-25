@@ -1,20 +1,21 @@
-# Number of Students
-student_count = 10
-
 # HEADER
 puts "The students of Villains Academy"
 puts "--------------------------------"
 # Students
-puts "Darth Vader"
-puts "Elmo"
-puts "The Joker"
-puts "Thanos"
-puts "Lex Luther"
-puts "Magneto"
-puts "Medusa"
-puts "Poison Ivy"
-puts "Joffrey Baratheon"
-puts "Negan"
+students = [
+  "Darth Vader", "Elmo", "The Joker",
+  "Thanos", "Lex Luther", "Magneto",
+  "Medusa", "Poison Ivy", "Joffrey Baratheon",
+  "Negan"
+]
+# Prints all the Students
+students.each do |x|
+  puts x
+end
+
+# Number of Students
+student_count = students.length
 
 # Print number of students
-print "Overall, we have #{student_count} great students"
+puts "--------------------------------"
+puts "Overall, we have #{student_count} great students"
