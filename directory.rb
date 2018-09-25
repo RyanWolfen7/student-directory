@@ -1,6 +1,3 @@
-# HEADER
-puts "The students of Villains Academy"
-puts "--------------------------------"
 # Students
 students = [
   "Darth Vader", "Elmo", "The Joker",
@@ -9,10 +6,25 @@ students = [
   "Negan"
 ]
 # Prints all the Students
-students.each do |x|
-  puts x
+def print_names(names)
+  names.each do |name|
+    puts name
+  end
+end
+
+# HEADER
+def print_header
+  puts "The students of Villains Academy"
+  puts "--------------------------------"
 end
 
 # Print number of students
-puts "--------------------------------"
-puts "Overall, we have #{students.count} great students"
+def print_footer(students)
+  puts "--------------------------------"
+  puts "Overall, we have #{students.count} great students"
+end
+
+# Run Program
+print_header
+print_names(students)
+print_footer(students)
