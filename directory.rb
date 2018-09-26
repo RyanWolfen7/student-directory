@@ -1,3 +1,5 @@
+@students = [] # Eptry array for students
+
 # Decoration for the terminal window
 def border
   puts "--------------------------------".center(50, "--------")
@@ -5,7 +7,7 @@ end
 
 # 10 space buffer
 def buffer
-  10.times do
+  3.times do
     puts
   end
 end
@@ -17,7 +19,6 @@ def input_students
   puts "To finish, hit return twice when prompted for a name".center(50)
   border
 
-  students = []
   # gets the name
   name = gets.chomp
   # while name is not empty continue names
@@ -75,11 +76,11 @@ def input_students
 
 
     # add the student to  Array
-    students << {name: name, cohort: cohort, hobby: hobby, meathod_of_murder: mom, favorite_color: fc}
-    if students.count == 1
-      puts "Now we have #{students.count} student".center(50)
+    @students << {name: name, cohort: cohort, hobby: hobby, meathod_of_murder: mom, favorite_color: fc}
+    if @students.count == 1
+      puts "Now we have #{@students.count} student".center(50)
     else
-      puts "Now we have #{students.count} students".center(50)
+      puts "Now we have #{@students.count} students".center(50)
     end
 
     border
@@ -91,7 +92,7 @@ def input_students
     name = gets.chomp
   end
   # return the array of students
-  students
+  # students
 end
 
 # Prints all the Students
@@ -145,10 +146,12 @@ def print_header
   border
   puts "THE STUDENTS OF VILLIANS ACADEMY".center(50)
   border
+  buffer
 end
 
 # Print number of students
 def print_footer(students)
+  buffer
   border
   puts "Overall, we have #{students.count} great students".center(50)
   border
@@ -189,12 +192,61 @@ def find_less_than(list)
   end
   border
 end
+# Show STUDENTS
+def show_students
+  print_header
+  print_names(@students)
+  print_footer(@students)
+end
 
-# Run Program
-students = input_students
-buffer
-print_header
-print_names(students)
-print_footer(students)
-find_by_letter(students)
-find_less_than(students)
+# prints use menu
+def print_menu
+  # Prints the menue and ask for user input
+  border
+  puts "Welcome to the Villain Academy Student Directory".center(50)
+  puts "Press 1 to input students"
+  puts "Press 2 to show the students"
+  puts "Press 3 to find students by first letter"
+  puts "Press 4 to find students less then a certain length"
+  puts "Press 8 to save changes"
+  puts "Press 9 to exit the program"
+  border
+end
+
+# Interactive menue
+def interactive_menu
+  loop do
+    print_menu
+    # reads user input
+    selection = gets.chomp.to_i
+    # do what the user asks
+    case selection
+    when 1
+      input_students
+    when 2
+      show_students
+    when 3
+      find_by_letter(@students)
+    when 4
+      find_less_than(@students)
+    when 8
+      save_students
+    when 9
+      exit
+    else
+      puts "You aren't very bright are you? Try Again"
+    end
+
+      #inputs the students
+  end
+end
+
+interactive_menu
+# Run Program -outdated-
+# students = input_students
+# buffer
+# print_header
+# print_names(students)
+# print_footer(students)
+# find_by_letter(students)
+# find_less_than(students)
