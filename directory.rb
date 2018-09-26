@@ -180,6 +180,27 @@ def find_by_letter(list)
   buffer
 end
 
+# Find by cohort
+def find_by_cohort(list)
+  puts "Enter a month to find all students in that cohort"
+  user_input = gets.chomp
+  count = 1
+  buffer
+  buffer
+
+  puts "#{user_input.capitalize} cohort has these students".center(50)
+  border
+  # cycles through students and prints out the ones in the Cohort
+  list.each do |x|
+    if x[:cohort].downcase.eql? user_input.downcase
+      puts "#{count}: #{x[:name]}"
+      count += 1
+    end
+  end
+  buffer
+  border
+end
+
 # Find students less then 12 characters long
 def find_less_than(list)
   puts "Type a number to find students with names shorter".center(50)
@@ -223,11 +244,25 @@ def save_students
 end
 
 # Loading the STUDENTS
-def load_students
+def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
     name, cohort, hobby, mom, fc = line.chomp.split(',')
     @students << {name: name, cohort: cohort, hobby: hobby, meathod_of_murder: mom, favorite_color: fc}
+  end
+  file.close
+end
+
+# Try to load students contingency
+def try_load_students
+  filename = ARGV.first # first argument from the command line
+  return if filename.nil? # get out of the method if it isn't given
+  if File.exists?(filename) # if it exists
+    load_students(filename)
+     puts "Loaded #{@students.count} from #{filename}"
+  else # if it doesn't exist
+    puts "Sorry, #{filename} doesn't exist."
+    exit # quit the program
   end
 end
 
@@ -252,8 +287,6 @@ def find_student_info(list)
   buffer
 end
 
-
-
 # prints use menu
 def print_menu
   # Prints the menue and ask for user input
@@ -263,6 +296,7 @@ def print_menu
   puts "Press 2 to show the students"
   puts "Press 3 to find students by first letter"
   puts "Press 4 to find students less then a certain length"
+  puts "Press 5 to find students by a certain cohort"
   puts "Press 6 to find out a students information"
   puts "Press 7 to load students from students.csv"
   puts "Press 8 to save changes"
@@ -286,6 +320,8 @@ def interactive_menu
       find_by_letter(@students)
     when 4
       find_less_than(@students)
+    when 5
+      find_by_cohort(@students)
     when 6
       find_student_info(@students)
     when 7
@@ -302,6 +338,7 @@ def interactive_menu
   end
 end
 
+try_load_students
 interactive_menu
 # Run Program -outdated-
 # students = input_students
