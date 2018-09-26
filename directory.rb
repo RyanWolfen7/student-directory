@@ -137,6 +137,7 @@ def print_names(names)
       puts "#{month} Cohort".center(5)
       puts "------------".center(5)
       puts people_by_cohort[month]
+      buffer
     end
   end
 end
@@ -162,17 +163,21 @@ def find_by_letter(list)
   puts "Enter a letter to search for students that name begins with it".center(50)
   user_input = gets.chomp
   count = 1
+  buffer
 
   # cycles through students to compare first letter with inputed letter
   puts "Here are all the students with names starting with #{user_input}".center(50, " * ")
   border
+  buffer
   list.each do |x|
     if x[:name].downcase.start_with?(user_input.downcase)
       puts "#{count}: #{x[:name]} (#{x[:cohort]} cohort)"
       count += 1
     end
   end
+  buffer
   border
+  buffer
 end
 
 # Find students less then 12 characters long
@@ -180,6 +185,7 @@ def find_less_than(list)
   puts "Type a number to find students with names shorter".center(50)
   user_input = gets.chomp
   count = 1
+  buffer
 
   puts "We found these students have less then #{user_input.to_i}".center(50)
   border
@@ -190,13 +196,30 @@ def find_less_than(list)
       count += 1
     end
   end
+  buffer
   border
+  buffer
 end
 # Show STUDENTS
 def show_students
   print_header
   print_names(@students)
   print_footer(@students)
+  buffer
+end
+
+# Saves students to seperate File
+def save_students
+  # open student file to write
+  file = File.open("students.cvs", "w")
+
+  # iterate student Array
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort], student[:hobby], student[:meathod_of_murder], student[:favorite_color]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  end
+  file.close
 end
 
 # prints use menu
