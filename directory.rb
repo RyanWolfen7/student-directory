@@ -211,7 +211,7 @@ end
 # Saves students to seperate File
 def save_students
   # open student file to write
-  file = File.open("students.cvs", "w")
+  file = File.open("students.csv", "w")
 
   # iterate student Array
   @students.each do |student|
@@ -222,6 +222,38 @@ def save_students
   file.close
 end
 
+# Loading the STUDENTS
+def load_students
+  file = File.open("students.csv", "r")
+  file.readlines.each do |line|
+    name, cohort, hobby, mom, fc = line.chomp.split(',')
+    @students << {name: name, cohort: cohort, hobby: hobby, meathod_of_murder: mom, favorite_color: fc}
+  end
+end
+
+# Finds info on stoodent
+def find_student_info(list)
+  puts "Enter a student's name to look up thier details"
+  user_input = gets.chomp
+  buffer
+
+  list.each do |x|
+    if x[:name].downcase.eql?  user_input.downcase
+      border
+      puts "Name:                 #{x[:name]}"
+      puts "Cohort:               #{x[:cohort]}"
+      puts "Hobby:                #{x[:hobby]}"
+      puts "Meathod of Murder:    #{x[:meathod_of_murder]}"
+      puts "Favorite Color:       #{x[:favorite_color]}"
+      border
+      buffer
+    end
+  end
+  buffer
+end
+
+
+
 # prints use menu
 def print_menu
   # Prints the menue and ask for user input
@@ -231,6 +263,8 @@ def print_menu
   puts "Press 2 to show the students"
   puts "Press 3 to find students by first letter"
   puts "Press 4 to find students less then a certain length"
+  puts "Press 6 to find out a students information"
+  puts "Press 7 to load students from students.csv"
   puts "Press 8 to save changes"
   puts "Press 9 to exit the program"
   border
@@ -252,6 +286,10 @@ def interactive_menu
       find_by_letter(@students)
     when 4
       find_less_than(@students)
+    when 6
+      find_student_info(@students)
+    when 7
+      load_students
     when 8
       save_students
     when 9
