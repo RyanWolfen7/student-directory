@@ -231,8 +231,16 @@ end
 
 # Saves students to seperate File
 def save_students
+  puts "Enter the name of the file you wish to save to"
+  user_input = gets.chomp
+
+  if File.exists?(user_input)
+    puts "#{user_input} found! Loading..."
+  else
+    puts "#{user_input} not found. Creating file #{user_input}"
+  end
   # open student file to write
-  file = File.open("students.csv", "w")
+  file = File.open(user_input, "w")
 
   # iterate student Array
   @students.each do |student|
@@ -241,16 +249,32 @@ def save_students
     file.puts csv_line
   end
   file.close
+  buffer
+  puts "#{@students.length} students saved to #{user_input}"
 end
 
 # Loading the STUDENTS
 def load_students(filename = "students.csv")
-  file = File.open("students.csv", "r")
+  puts "Enter a file to load from or hit return to load students.csv[Default]"
+  user_input = gets.chomp
+
+  if File.exists?(user_input)
+    file = File.open(user_input, "r")
+  else
+    file = File.open("students.csv", "r")
+  end
+
   file.readlines.each do |line|
     name, cohort, hobby, mom, fc = line.chomp.split(',')
     @students << {name: name, cohort: cohort, hobby: hobby, meathod_of_murder: mom, favorite_color: fc}
   end
   file.close
+
+  if @students.length > 0
+    puts "#{@students.length} students Succesfully loaded"
+  else
+    puts "You have failed me for the last time, no students where loaded"
+  end
 end
 
 # Try to load students contingency
@@ -287,20 +311,42 @@ def find_student_info(list)
   buffer
 end
 
+# Deletes student
+def delete_student(list)
+  puts "Enter the name of the student that need ELIMINATING"
+  user_input = gets.chomp
+  count = 0
+  buffer
+  puts "Finding target..."
+
+  list.each do |x|
+    if x[:name].downcase.eql? user_input.downcase
+      puts "Target found..."
+      puts "#{x[:name]} Eliminated"
+      @students.delete_at(count)
+      buffer
+    end
+    count += 1
+  end
+  buffer
+end
+
 # prints use menu
 def print_menu
   # Prints the menue and ask for user input
   border
   puts "Welcome to the Villain Academy Student Directory".center(50)
-  puts "Press 1 to input students"
-  puts "Press 2 to show the students"
+  puts "Press 1 to input student(s)"
+  puts "Press 2 to show the student(s)"
   puts "Press 3 to find students by first letter"
   puts "Press 4 to find students less then a certain length"
   puts "Press 5 to find students by a certain cohort"
   puts "Press 6 to find out a students information"
-  puts "Press 7 to load students from students.csv"
+  puts "Press 7 to load students from File [Default: students.csv]"
   puts "Press 8 to save changes"
-  puts "Press 9 to exit the program"
+  puts "Press 9 to remove a student"  # Remember to impliment this with a def
+  puts "Press 10 to reset the student list"
+  puts "Press 66 to exit the program"
   border
 end
 
@@ -329,12 +375,21 @@ def interactive_menu
     when 8
       save_students
     when 9
+      delete_student(@students)
+    when 10
+      @students = [] # Resets the student Array
+    when 66
+      buffer
+      border
+      puts "Executing Order 66 my Lord"
+      border
+      buffer
       exit
     else
       puts "You aren't very bright are you? Try Again"
     end
 
-      #inputs the students
+      # inputs the students
   end
 end
 
