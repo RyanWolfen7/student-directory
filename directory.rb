@@ -328,7 +328,6 @@ def delete_student(list)
     end
     count += 1
   end
-  buffer
 end
 
 # prints use menu
